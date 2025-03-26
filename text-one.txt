@@ -1,6 +1,2 @@
 hello my name is om !!!
-<<<<<<< HEAD
-Hello again !!!!
-=======
 Not hello, this time byee.
->>>>>>> eae17b46e2117048ce4802808ae242b3a4ecbf9e
