@@ -5,15 +5,18 @@ from sentence_transformers import SentenceTransformer
 from scrapData import scrapdata
 
 
+# Corrected Embedding Function
 class SentenceTransformerEmbeddingFunction:
     """Custom Embedding Function using Sentence Transformers."""
     
     def __init__(self, model_name="all-MiniLM-L6-v2"):
         self.model = SentenceTransformer(model_name)
 
-    def __call__(self, texts):
-        embeddings = self.model.encode(texts, normalize_embeddings=True)
+    def __call__(self, input):
+        # The new version expects 'input' instead of 'texts'
+        embeddings = self.model.encode(input, normalize_embeddings=True)
         return embeddings.tolist()
+
 
 
 # Load Sentence Transformer model
@@ -26,7 +29,7 @@ client = chromadb.PersistentClient(path="./chroma_db")  # Saves data in "chroma_
 collection = client.get_or_create_collection(
     name="NEWS",
     embedding_function=sentence_transformer_embedding_function,
-    distance_function="cosine"  # Ensures cosine distance is used
+    metadata={"distance_function": "cosine"}  # Ensures cosine distance is used
 )
 
 # Fetch collection
@@ -70,7 +73,7 @@ def get_answer(question):
     result = ask_question(question)
     
     # Check distance with threshold (cosine distance should be < 0.5)
-    if bool(result["documents"][0]) and result["distances"][0][0] > 0.5:
+    if bool(result["documents"][0]) and result["distances"][0][0] > 1.3:
         print("No relevant data found")
         print("Scraping data .......")
         get_data(question)
