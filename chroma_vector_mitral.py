@@ -1,3 +1,5 @@
+# Here we use mistral for genrating enbeddings
+
 import chromadb
 import ollama
 from scrapData import scrapdata

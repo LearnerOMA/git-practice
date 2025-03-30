@@ -1,3 +1,5 @@
+# Here we are using Inida times website to scrap data
+
 from bs4 import BeautifulSoup as bs
 import requests as rs
 import os

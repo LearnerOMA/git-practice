@@ -1,3 +1,5 @@
+# Here we use sentence trasformer to genrate embeddings
+
 import chromadb
 from sentence_transformers import SentenceTransformer
 from scrapData import scrapdata
